@@ -1,14 +1,14 @@
-const snowflakeInterval = 50;
+const woodflakeInterval = 100;
 const windStrength = {
 	min: 0.01,
 	max: 0.025
 };
-const snowflakeSize = {
-	min: 2.5,
-	max: 7.5
+const woodflakeSize = {
+	min: 40,
+	max: 70
 }
 
-const snowflakeSpeed = {
+const woodflakeSpeed = {
 	min: 100,
 	max: 150
 }
@@ -17,68 +17,65 @@ function minmax(value, {min, max}) {
 	return (value * (max - min)) + min;
 }
 
-function bindSnow(canvas) {
+var woodImage = [...document.querySelectorAll("img.wood")][0];
+function bindWood(canvas) {
 	if (!canvas instanceof HTMLCanvasElement) return;
 
 	if (canvas.closest('.section')) canvas.style.backgroundColor = 'rgba(0,0,0,0.1)';
 
 	const ctx = canvas.getContext("2d");
-	var img = "img/armadio.jpg";
 
-	let snowflakes = [];
+	let woodflakes = [];
 
 	let lastTick = performance.now();
 
 	function tick() {
 		const tickTime = performance.now() - lastTick;
 		const wind = Math.cos(Date.now() / 10000);
+		
 		lastTick = performance.now();
 
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-		ctx.fillStyle = "#fff";
-		for (let snowflake of snowflakes) {
-			snowflake.y = (performance.now() - snowflake.created) / 1000 * minmax(snowflake.size, snowflakeSpeed);
-
-			ctx.beginPath();
-			ctx.drawImage(img,10,10);
-			// ctx.arc(snowflake.x * canvas.width, snowflake.y, minmax(snowflake.size, snowflakeSize), 0, Math.PI * 2);
-			ctx.fill();
+		for (let woodflake of woodflakes) {
+			woodflake.y = (performance.now() - woodflake.created) / 1000 * minmax(woodflake.size, woodflakeSpeed) - minmax(woodflake.size, woodflakeSize);
+			// ctx.beginPath();
+			ctx.drawImage(woodImage,woodflake.x * canvas.width,woodflake.y,minmax(woodflake.size, woodflakeSize),minmax(woodflake.size, woodflakeSize));
 	
-			snowflake.x += wind * minmax(1 - snowflake.size, windStrength) * (tickTime / 1000);
+			woodflake.x += wind * minmax(1 - woodflake.size, windStrength) * (tickTime / 1000);
 		}
 
-		snowflakes = snowflakes.filter(snowflake => snowflake.y < canvas.height * 1.5)
+		woodflakes = woodflakes.filter(woodflake => woodflake.y < canvas.height * 1.5)
 
 		window.requestAnimationFrame(tick);
 	}
 
 	window.setInterval(() => {
-		const canvasMargin = (canvas.height / snowflakeSpeed.max) * windStrength.max;
-		snowflakes.push({
+		const canvasMargin = (canvas.height / woodflakeSpeed.max) * windStrength.max;
+		woodflakes.push({
 			created: performance.now(),
 			x: (Math.random() * (1 + (canvasMargin * 2))) - canvasMargin,
 			size: Math.random()
 		});
-	}, snowflakeInterval);
+	}, woodflakeInterval);
 
 	window.requestAnimationFrame(tick);
 }
 
-let snowStarted = false;
+let woodStarted = false;
 
-function startSnow() {
-	if (snowStarted) return;
-	snowStarted = true;
+function startWood() {
+	if (woodStarted) return;
+	woodStarted = true;
 
-	const snowCanvas = [...document.querySelectorAll("canvas.snow")];
-	snowCanvas.map(bindSnow);
+	const woodCanvas = [...document.querySelectorAll("canvas.wood")];
+	woodCanvas.map(bindWood);
 }
 
 const now = new Date();
 
 if (now.getMonth() === 11 && now.getDate() > 15) {
-	startSnow();
+	startWood();
 }
 
 function bindFull(canvas) {
@@ -96,4 +93,4 @@ function bindFull(canvas) {
 const fullCanvas = [...document.querySelectorAll("canvas.full")];
 fullCanvas.map(bindFull);
 
-module.exports = startSnow;
+module.exports = startWood;

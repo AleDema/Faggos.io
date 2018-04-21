@@ -3,11 +3,11 @@ window.javascriptLocales = {
 		"Also yes, any website can access your clipboard however they want, isn't that creepy?\n" +
 		"Regardless, Satania is the BEST WAIFU, and you should agree! http://satania.moe/",
 	searchByVoice: "lmao, no one uses this button",
-	searchButton: "but the results are already there =]",
-	searchBar: "this isn't a real search bar",
+	searchButton: "M ail risultato è già lì",
+	searchBar: "non è una vera barra di ricerca",
 	snedHelp: "pls send helppp",
 	perfection: "perfection",
-	searchBarName: "satania",
+	searchBarName: "faggosio",
 	newTab: "Link opens in a new tab."
 }
 
@@ -117,20 +117,6 @@ function refreshLinks(element = document.body) {
 
 window.onload = () => {
 	refreshLinks();
-
-	// Create an observer, which will make sure the links open in a new tab whenever the page changes
-	var observer = new MutationObserver(mutations => {
-		mutations.forEach(mutation => {
-			refreshLinks(mutation.target);
-		});
-	});
-
-	observer.observe(document.body, {
-		attributes: true,
-		childList: true,
-		characterData: true,
-		subtree: true
-	});
 }
 
 /*
@@ -153,6 +139,7 @@ for (let slideshow of slideshows) {
 		slides[slideshow.currentSlide].classList.add("shown");
 
 		slideshow.getElementsByClassName("source")[0].href = slides[slideshow.currentSlide].getAttribute("href");
+		slideshow.getElementsByClassName("source")[0].target = '_blank';
 	}, 2500);
 
 	// Image preloading
@@ -184,7 +171,7 @@ searchbar.onclick = event => {
 	}
 
 	window.setTimeout(() => {
-		span.innerText = javascriptLocales.searchBarName || "satania";
+		span.innerText = javascriptLocales.searchBarName || "faggosio";
 	}, 2000);
 }
 
@@ -227,9 +214,9 @@ if (window.Element && !Element.prototype.closest) {
 		};
 }
 
-document.getElementById("card-container").onclick = event => {
-	event.target.closest(".card").classList.toggle("flipped");
-}
+// document.getElementById("card-container").onclick = event => {
+	// event.target.closest(".card").classList.toggle("flipped");
+// }
 
 var laughKeys = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65],
 	laughPos = 0,
@@ -280,25 +267,25 @@ function getContent(url) {
 	});
 }
 
-function discordInfo(invite) {
-	return getContent(`https://discordapp.com/api/v6/invite/${invite}?with_counts=true`);
-}
+// function discordInfo(invite) {
+	// return getContent(`https://discordapp.com/api/v6/invite/${invite}?with_counts=true`);
+// }
 
-function subredditInfo(subreddit) {
-	return getContent(`https://www.reddit.com/r/${subreddit}/about.json`)
-}
+// function subredditInfo(subreddit) {
+	// return getContent(`https://www.reddit.com/r/${subreddit}/about.json`)
+// }
 
 let guild, subreddit;
 
-discordInfo("rC9ebp7").then(fetchedGuild => {
-	guild = fetchedGuild;
-	updateCounts();
-})
+// discordInfo("rC9ebp7").then(fetchedGuild => {
+	// guild = fetchedGuild;
+	// updateCounts();
+// })
 
-subredditInfo("satania").then(fetchedSubreddit => {
-	subreddit = fetchedSubreddit;
-	updateCounts();
-})
+// subredditInfo("satania").then(fetchedSubreddit => {
+	// subreddit = fetchedSubreddit;
+	// updateCounts();
+// })
 
 function updateCounts() {
 	if (guild) {
