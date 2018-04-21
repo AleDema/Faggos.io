@@ -179,7 +179,7 @@ var audioPlayingAtOnce = 0;
 
 document.getElementById("listen").onclick = () => {
 	var audio = new Audio();
-	audio.src = "perfection.mp3";
+	audio.src = "perfection.mp3"; //da cambiare con la voce di faggosio
 	audio.play();
 
 	audio.addEventListener("ended", () => {
@@ -232,7 +232,7 @@ document.body.onkeyup = event => {
 				laughing = true;
 
 				var audio = new Audio();
-				audio.src = "laugh.mp3";
+				audio.src = "laugh.mp3"; // da cambiare con qualcosa detto da faggosio
 				audio.play();
 
 				audio.addEventListener("ended", () => {
