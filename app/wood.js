@@ -21,7 +21,7 @@ var woodImage = [...document.querySelectorAll("img.wood")][0];
 function bindWood(canvas) {
 	if (!canvas instanceof HTMLCanvasElement) return;
 
-	if (canvas.closest('.section')) canvas.style.backgroundColor = 'rgba(0,0,0,0.1)';
+	//if (canvas.closest('.section')) canvas.style.backgroundColor = 'rgba(0,0,0,0.1)';
 
 	const ctx = canvas.getContext("2d");
 
